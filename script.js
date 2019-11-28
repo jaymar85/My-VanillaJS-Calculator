@@ -8,7 +8,7 @@ class Calculator {
     clear() {
         this.currentOperand = ''
         this.previousOperand = ''
-        this.operaton = undefined
+        this.operation = undefined
     }
 
     delete() {
@@ -25,7 +25,7 @@ class Calculator {
         if(this.previousOperand !== '') {
             this.compute()
         }
-        this.operaton = operation
+        this.operation = operation
         this.previousOperand = this.currentOperand
         this.currentOperand = ''
     }
@@ -55,8 +55,22 @@ class Calculator {
         this.operation = undefined
         this.previousOperand = ''
     }
+
     getDisplayNumber(number) {
-        return number
+        const stringNumber = number.toString()
+        const integerDigits = parseFloat(stringNumber.split('.')[0])
+        const decimalDigits = stringNumber.split('.')[1]
+        let integerDisplay
+        if(isNaN(integerDigits)) {
+            integerDisplay = ''
+        } else {
+            integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 })
+        }
+        if(decimalDigits != null) {
+            return `${integerDisplay}.${decimalDigits}`
+        } else {
+            return integerDisplay
+        }
     }
 
     updateDisplay() {
